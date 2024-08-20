@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import '../ActivityCard.dart';
+import '../components/ActivityCard.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
