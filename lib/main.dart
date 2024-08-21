@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Screens/Reports.dart';
-import 'Screens/Settings.dart';
-import 'Screens/Home.dart'; // This will be needed for stream subscription
+import 'ActivityCard.dart';
+import 'reports.dart'; // Make sure you have this file in your project
 
 void main() {
   runApp(MyApp());
@@ -12,70 +11,60 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
-          useMaterial3: true,
-          brightness: Brightness.dark,
-        ),
-        home: MyHomePage());
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
+      home: HomePage(),
+    );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+class HomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    Home(),
-    Reports(),
-    Settings(),
-  ];
-
-  static List<String> _titles = <String>[
-    'Health Tracker',
-    'Reports',
-    'Settings',
-  ];
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff070707),
       appBar: AppBar(
         backgroundColor: Color(0xff070707),
         title: Text(
-          _titles[_currentIndex],
+          'Health Tracker',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
       ),
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ActivityCard(),
+          ),
+          ReportPage(),
+          Center(child: Text('Settings Page')), // Placeholder for Settings page
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.query_stats),
-              label: 'Reports',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ]),
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Report'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
     );
   }
 }

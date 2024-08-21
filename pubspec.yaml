@@ -37,6 +37,9 @@ dependencies:
   google_fonts: ^6.2.1
   pedometer: ^4.0.2
   permission_handler: ^11.3.1
+  shared_preferences: ^2.0.15
+  percent_indicator: ^4.2.2
+  fl_chart: ^0.55.0
 
 dev_dependencies:
   flutter_test:
