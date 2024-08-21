@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'ActivityCard.dart';
-import 'reports.dart'; // Make sure you have this file in your project
+import 'package:pedometer_flutter_app/Screens/Home.dart';
+import 'package:pedometer_flutter_app/Screens/Reports.dart';
+import 'package:pedometer_flutter_app/Screens/Settings.dart';
+import 'components/ActivityCard.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,6 +32,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
+  final List<String> _appBarTitles = [
+    'Health Tracker',
+    'Reports',
+    'Settings',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,19 +45,16 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff070707),
         title: Text(
-          'Health Tracker',
+          _appBarTitles[_selectedIndex],
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
       ),
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ActivityCard(),
-          ),
-          ReportPage(),
-          Center(child: Text('Settings Page')), // Placeholder for Settings page
+          Home(),
+          Reports(),
+          Settings(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -62,7 +67,8 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Report'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
     );
