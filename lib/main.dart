@@ -32,7 +32,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final List<String> _appBarTitles = [
+  // List of titles for each page
+  final List<String> _titles = [
     'Health Tracker',
     'Reports',
     'Settings',
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff070707),
         title: Text(
-          _appBarTitles[_selectedIndex],
+          _titles[_selectedIndex], // Dynamically set the title
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
       ),
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Home(),
           Reports(),
-          Settings(),
+          Settings(), // Placeholder for Settings page
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
